@@ -34,7 +34,7 @@ def mensagem_saindo():
     for _ in range(5): 
         sys.stdout.write("\rSaindo" + "." * _)
         sys.stdout.flush()
-        sleep(0.5)  
+        sleep(1)  
         sys.exit()
 
 def main():
