@@ -8,14 +8,31 @@ def criar_tabela_usuarios():
     cursor = conn.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS usuarios (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        user TEXT UNIQUE,
+                        user TEXT UNIQUE NOT NULL,
                         senha TEXT
+                        saldo INTEGER DEFAULT 0
                     )''')
     conn.commit()
     conn.close()
 
 def cadastrar_usuario():
+    conn = sqlite3.connect('usuarios.db')
+    cursor = conn.cursor()
+
     usuario = input("Digite seu usuário: ")
+    try:
+        # Verificar se o usuário já está cadastrado
+        cursor.execute('SELECT * FROM usuarios WHERE user = ?', (usuario,))
+        if cursor.fetchone():
+            print("Usuário já cadastrado. Tente outro nome de usuário.")
+            conn.close()
+            sleep(3)
+            system("clear")
+            inicio()
+    except sqlite3.IntegrityError as e:
+        print("Erro ao verificar usuário:", e)
+        conn.close()
+        return
     senha = input("Digite sua senha: ")
     confirm_senha = input("Confirme sua senha: ")
 
