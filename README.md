@@ -1,5 +1,3 @@
 # Payment-Gateway
 
-Mudanças que irei realizar:
-  Arrumar o login e cadastro
-  Adicionar em um banco de dados
+Simples Sistema de login usando Python sqlite
